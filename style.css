@@ -1,0 +1,536 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+}
+
+body {
+    background-color: #f2efe9;
+    color: #111;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    border-left: 8px solid #111;
+    border-right: 8px solid #111;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeat url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2rV7928GBgYgBsgACEAAEGAAQJgDa8R6HxwAAAAASUVORK5CYII=');
+}
+
+.pack-header {
+    background-color: #A81A1A; 
+    color: #f2efe9;
+    text-align: center;
+    padding: clamp(40px, 6vw, 80px) 20px clamp(80px, 12vw, 150px) 20px;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
+    z-index: 2;
+}
+
+.instrument-serif {
+    font-family: "Instrument Serif", serif;
+    text-transform: none; 
+}
+
+.brand-title {
+    font-size: clamp(80px, 14vw, 180px);
+    line-height: 0.8;
+    margin-bottom: 10px;
+    font-weight: normal;
+    letter-spacing: 0.2em;
+}
+
+.brand-subtitle {
+    font-weight: bold;
+    letter-spacing: 4px;
+    font-size: clamp(10px, 1.5vw, 16px);
+    margin-top: 20px;
+}
+
+.warning-label {
+    margin: -6vw auto 50px auto; 
+    max-width: 1400px;
+    width: 90%;
+    background: #fff;
+    border: clamp(3px, 1vw, 6px) solid #111;
+    padding: clamp(15px, 3vw, 40px);
+    text-align: center;
+    font-size: clamp(16px, 2.5vw, 32px);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+}
+
+.pack-layout {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 50px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 5vw 80px 5vw;
+}
+
+@media (min-width: 1024px) {
+    .pack-layout {
+        grid-template-columns: 2.2fr 1fr; 
+        align-items: start;
+    }
+}
+
+.pack-front { display: flex; flex-direction: column; gap: 20px; }
+
+/* Tabs adaptatifs pour 3 éléments */
+.pack-tabs {
+    display: flex;
+    border: 3px solid #111;
+    flex-wrap: wrap; 
+}
+.tab-btn {
+    flex: 1 1 auto;
+    background: #fff;
+    border: none;
+    padding: clamp(12px, 1.5vw, 20px);
+    font-size: clamp(11px, 1.3vw, 18px); /* Légèrement plus petit pour faire tenir les 3 sur mobile */
+    font-weight: 900;
+    cursor: pointer;
+    border-right: 3px solid #111;
+    transition: background 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+}
+.tab-btn:last-child { border-right: none; }
+.tab-btn.active { background: #A81A1A; color: #fff; }
+
+@media (max-width: 600px) {
+    .tab-btn { border-right: none; border-bottom: 3px solid #111; width: 100%; }
+    .tab-btn:last-child { border-bottom: none; }
+}
+
+.content-view { display: none; }
+.content-view.active { display: grid; }
+
+#view-roster-label.active, #view-roster-distro.active {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+    gap: 20px; 
+}
+
+#view-releases.active {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+    gap: 20px;
+}
+@media (min-width: 768px) {
+    #view-releases.active {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+}
+
+/* Animations Cellophane & Peeling (Inchangé) */
+@keyframes cellophane-glare {
+    0% { left: -150%; opacity: 0; }
+    20% { opacity: 1; }
+    100% { left: 150%; opacity: 0; }
+}
+
+.cellophane-wrapper {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    overflow: hidden; 
+    pointer-events: none;
+    z-index: 5; 
+}
+
+.cellophane-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -150%; width: 100%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(var(--glare-angle, -20deg));
+}
+
+.item-row:hover .cellophane-wrapper::before, 
+.release-card:hover .cellophane-wrapper::before {
+    animation: cellophane-glare var(--glare-dur, 0.6s) var(--glare-delay, 0s) ease-in-out forwards;
+}
+
+.item-row::after, .release-card::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 0; height: 0;
+    background: linear-gradient(135deg, #f2efe9 45%, #e0ddd5 50%, #fff 55%);
+    box-shadow: -2px -2px 6px rgba(0,0,0,0.15); 
+    transition: width 0.3s ease, height 0.3s ease;
+    pointer-events: none;
+    border-left: 1px solid #111;
+    border-top: 1px solid #111;
+    z-index: 11;
+}
+.item-row:hover::after, .release-card:hover::after {
+    width: 25px; height: 25px;
+}
+
+/* Cartes Globales */
+.item-row, .release-card {
+    position: relative;
+    border: 2px solid #111;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+}
+
+.item-row:hover, .release-card:hover {
+    transform: translateY(-4px) scale(1.01); 
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
+    z-index: 20; 
+}
+
+/* ARTIST ROW */
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 120px;
+    margin-top: 15px; 
+}
+
+/* --- L'ÉTIQUETTE / STICKER --- */
+/* 1. Par défaut (Label/Roster ET Releases Gato) : ROUGE avec BORDURE NOIRE */
+.item-type {
+    position: absolute;
+    top: -12px;
+    right: 25px; 
+    background: #A81A1A; 
+    color: #fff;
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    z-index: 15; 
+    border: 1px solid #111 !important; /* On force la bordure noire partout par défaut */
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* 2. Si c'est de la distribution (Artiste ou Release) : NOIR avec BORDURE NOIRE */
+.item-row.distro-item .item-type,
+.release-card.distro-release .item-type { 
+    background: #111; 
+    color: #fff;
+    /* La bordure est déjà gérée par la règle ci-dessus */
+}
+
+/* 3. L'animation au survol */
+.item-row:hover .item-type, 
+.release-card:hover .item-type {
+    transform: translateY(-3px) rotate(-2deg) scale(1.02);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.item-details {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 100px); 
+    position: relative;
+    z-index: 2; 
+}
+.item-name {
+    font-size: clamp(30px, 3vw, 42px);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+.item-role {
+    font-size: 10px;
+    color: #999;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.row-thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    background: #f2efe9;
+    border-left: 2px solid #111; 
+    margin: 20px 20px 20px 0; 
+    position: relative;
+    z-index: 2;
+}
+
+/* RELEASES CARD */
+.release-card {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+.release-cover-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    border-bottom: 2px solid #111;
+    overflow: hidden;
+    background: #f2efe9;
+    position: relative;
+    z-index: 2;
+}
+.release-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.release-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+.release-card .item-name { font-size: 24px; }
+.item-batch {
+    font-size: 10px;
+    color: #111;
+    font-weight: bold;
+    margin-top: 8px;
+    letter-spacing: 1px;
+}
+
+/* DISTINCTION SUBTILE LABEL vs DISTRO pour Releases */
+.release-card .item-type {
+    background: #A81A1A; 
+    border-color: #A81A1A;
+}
+.release-card.distro-release .item-type {
+    background: #111; /* L'étiquette de distribution devient noire */
+    color: #fff;
+    border-color: #111;
+}
+
+/* --- RIGHT COLUMN (SERVICES - PLUS IMPOSANTS) --- */
+.pack-side {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.side-header {
+    font-size: 22px; /* Agrandit */
+    font-weight: 900;
+    border-bottom: 4px solid #111; /* Renforcé */
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+}
+
+.capabilities-block { display: flex; flex-direction: column; gap: 30px; }
+
+.cap-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.cap-tag {
+    background: transparent;
+    color: #111;
+    font-size: 14px; /* Agrandit */
+    font-weight: 900;
+    margin-bottom: 8px;
+    border-bottom: 3px solid #A81A1A; /* Soulignement plus marquant */
+    padding-bottom: 4px;
+    letter-spacing: 1px;
+}
+.cap-desc {
+    font-size: 14px; /* Agrandit pour la lisibilité */
+    font-weight: bold;
+    color: #444;
+    line-height: 1.6;
+    text-transform: none; 
+}
+
+/* Footer */
+.pack-footer {
+    border-top: 3px solid #111;
+    padding-top: 20px;
+}
+.footer-logo {
+    width: 60px;
+    margin-bottom: 15px;
+}
+.contact-info {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.6;
+}
+.contact-info a {
+    color: #A81A1A;
+    text-decoration: none;
+}
+.barcode-massive {
+    width: 100%;
+    height: 80px;
+    margin-top: 20px;
+    background: repeating-linear-gradient(90deg, #111, #111 4px, transparent 4px, transparent 8px, #111 8px, #111 10px, transparent 10px, transparent 16px);
+}
+
+/* --- MODAL DIALOG (BRUTALIST & SHARP) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(17, 17, 17, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 100;
+    padding: 15px;
+}
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+.modal-content {
+    background: #fff;
+    width: 100%;
+    max-width: 600px;
+    padding: clamp(30px, 5vw, 50px);
+    position: relative;
+    border: 3px solid #111;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.35); 
+    display: flex;
+    flex-direction: column;
+}
+
+.close-btn {
+    position: absolute;
+    top: -15px; right: -15px;
+    background: #A81A1A;
+    color: #ffffff;
+    border: 3px solid #111;
+    font-weight: 900;
+    font-size: 18px;
+    width: 40px; height: 40px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex; justify-content: center; align-items: center;
+}
+.close-btn:hover { 
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2); 
+}
+
+.modal-header-area {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.modal-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 2px solid #111;
+    background: #f2efe9;
+}
+
+.modal-info-core { 
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.modal-type {
+    font-size: 10px;
+    background: #A81A1A;
+    color: #fff;
+    padding: 4px 8px;
+    margin-bottom: 12px;
+    font-weight: bold;
+    border: 1px solid #111;
+}
+.modal-title {
+    font-size: clamp(35px, 5vw, 60px); 
+    line-height: 0.9;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+.modal-role {
+    font-size: 12px;
+    font-weight: bold;
+    color: #888;
+    letter-spacing: 1px;
+}
+
+.modal-desc {
+    font-size: clamp(14px, 2vw, 16px);
+    font-weight: bold;
+    color: #111;
+    line-height: 1.6;
+    border-top: 2px solid #111;
+    padding-top: 20px;
+    margin-top: 10px;
+    text-transform: none; 
+}
+
+/* Boutons réseaux sociaux - Zéro arrondi, Ombre douce */
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #A81A1A;
+    border: 2px solid #111;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 11px;
+    font-weight: 900;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.modal-action {
+    display: block;
+    width: 100%;
+    background: #A81A1A;
+    color: #fff;
+    text-align: center;
+    padding: 18px;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 16px;
+    margin-top: 10px;
+    border: 3px solid #111;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.modal-action:hover {
+    background: #111;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}

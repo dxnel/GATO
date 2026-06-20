@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATO</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="pack-header">
+        <h1 class="brand-title instrument-serif">GATO</h1>
+        <div class="brand-subtitle">EST. 2025</div>
+    </header>
+
+    <div class="warning-label" id="warning-target"></div>
+
+    <main class="pack-layout">
+        <section class="pack-front">
+            <!-- LES 3 ONGLETS -->
+            <div class="pack-tabs">
+                <button class="tab-btn active" onclick="switchView('roster-label', event)">ROASTER</button>
+                <button class="tab-btn" onclick="switchView('roster-distro', event)">PARTNERS</button>
+                <button class="tab-btn" onclick="switchView('releases', event)">RELEASES</button>
+            </div>
+
+            <!-- CONTENU : LABEL -->
+            <div id="view-roster-label" class="content-view active">
+                <div id="roster-label-target" style="display: contents;"></div>
+            </div>
+
+            <!-- CONTENU : DISTRIBUTION -->
+            <div id="view-roster-distro" class="content-view">
+                <div id="roster-distro-target" style="display: contents;"></div>
+            </div>
+
+            <!-- CONTENU : RELEASES -->
+            <div id="view-releases" class="content-view">
+                <div id="releases-target" style="display: contents;"></div>
+            </div>
+        </section>
+
+        <aside class="pack-side">
+            <div class="side-panel-section">
+                <h3 class="side-header">SERVICES COMPOSITION</h3>
+                <div class="capabilities-block" id="ingredients-target"></div>
+            </div>
+
+            <footer class="pack-footer">
+                <img src="" id="footer-logo" alt="GATO Manufacturer" class="footer-logo" style="display:none;">
+                <div class="contact-info">
+                    MANUFACTURED BY GATO RECORDS<br>
+                    SWITZERLAND<br>
+                    <a href="mailto:gatomusic.contact@gmail.com">gatomusic.contact@gmail.com</a><br>
+                    IG: <a href="https://instagram.com/gato.records" target="_blank">@GATO.RECORDS</a>
+                </div>
+                <div class="barcode-massive"></div>
+            </footer>
+        </aside>
+    </main>
+
+    <div class="modal-overlay" id="pack-modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="forceClose()">X</button>
+            
+            <div class="modal-header-area">
+                <img src="" id="modal-img" class="modal-image" alt="Profile">
+                <div class="modal-info-core">
+                    <div class="modal-type" id="modal-type">TYPE</div>
+                    <h2 class="modal-title instrument-serif" id="modal-title">NAME</h2>
+                    <div style="font-weight:bold; color:#666; letter-spacing: 1px;" id="modal-role">ROLE</div>
+                </div>
+            </div>
+
+            <p class="modal-desc" id="modal-desc">Description</p>
+            
+            <div id="modal-socials" class="social-links"></div>
+            <div id="modal-action-container"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

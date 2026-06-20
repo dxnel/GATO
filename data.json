@@ -1,0 +1,194 @@
+{
+  "packaging_info": {
+    "brand": "GATO",
+    "product_type": "AUDIO ARCHITECTURE & MANAGEMENT",
+    "warning": "WARNING: HIGHLY ADDICTIVE MATERIAL. MAY CAUSE SEVERE EMOTIONAL DISTORTION AND SENSORY OVERLOAD. DO NOT PLAY AT LOW VOLUMES.",
+    "contact": "gatomusic.contact@gmail.com",
+    "network": "@gato.records",
+    "assets": {
+      "seal_logo": "imgs/GATO_LogoPPBlack-1000.png",
+      "footer_logo": "imgs/GATO_LogoPPBlack-1000.png"
+    },
+    "capabilities": [
+      {
+        "service": "RECORD LABEL & MANAGEMENT",
+        "desc": "Full-lifecycle career development, strategic planning, and release architecture."
+      },
+      {
+        "service": "DISTRIBUTION",
+        "desc": "Independent catalog integration into high-velocity global streaming ecosystems."
+      },
+      {
+        "service": "AUDIO ENGINEERING",
+        "desc": "Advanced mixing, stem mastering, and acoustic structural design."
+      },
+      {
+        "service": "CREATIVE DIRECTION",
+        "desc": "Visual world-building, typography systems, and merchandise curation."
+      }
+    ]
+  },
+  "roster_blend": [
+    {
+      "id": "w0ndr",
+      "name": "w0ndr",
+      "type": "GATO Exclusive",
+      "role": "Artist",
+      "desc": "Indie-Pop etc.",
+      "image": "imgs/artists/w0ndrpp.jpg",
+      "socials": {
+        "instagram": "https://instagram.com/",
+        "spotify": "https://spotify.com/"
+      }
+    },
+    {
+      "id": "alma_nava",
+      "name": "Alma Nava",
+      "type": "GATO Exclusive",
+      "role": "Artist",
+      "desc": "Bla bla.",
+      "image": "GATO_LogoPPRed-1000.png",
+      "socials": {
+        "instagram": "https://instagram.com/"
+      }
+    },
+    {
+      "id": "lyndxn",
+      "name": "lyndxn",
+      "type": "GATO Exclusive",
+      "role": "Management & Engineering",
+      "desc": "Bla bla.",
+      "image": "GATO_LogoPPRed-1000.png",
+      "socials": {
+        "instagram": "https://instagram.com/",
+        "soundcloud": "https://soundcloud.com/"
+      }
+    },
+    {
+      "id": "ivrs",
+      "name": "Ivrs.",
+      "type": "GATO Exclusive",
+      "role": "Artist",
+      "desc": "Bla bla..",
+      "image": "imgs/artists/ivrspp.png",
+      "socials": {
+        "instagram": "https://instagram.com/"
+      }
+    },
+    {
+      "id": "yzote",
+      "name": "yzote",
+      "type": "GATO Exclusive",
+      "role": "Artist",
+      "desc": "Bla bla.",
+      "image": "GATO_LogoPPRed-1000.png",
+      "socials": {
+        "instagram": "https://instagram.com/"
+      }
+    },
+    {
+      "id": "tengshe",
+      "name": "tengshe",
+      "type": "Distribution",
+      "role": "Artist ● Alvéole Records",
+      "desc": "Bla bla,",
+      "image": "GATO_LogoBlack-1000.png",
+      "socials": {
+        "instagram": "https://instagram.com/",
+        "spotify": "https://spotify.com/"
+      }
+    }
+  ],
+  "batch_releases": [
+    {
+      "id": "rel_01",
+      "title": "meraki",
+      "artist": "yzote",
+      "release_date": "2025-11-16",
+      "format": "Single",
+      "link": "#",
+      "cover": "https://i1.sndcdn.com/artworks-hAgxzMG13CrkRHWX-koMXKA-t1080x1080.png"
+    },
+    {
+      "id": "rel_02",
+      "title": "Leaving Earth",
+      "artist": "w0ndr",
+      "release_date": "2026-02-27",
+      "format": "Single",
+      "link": "#",
+      "cover": "https://images.genius.com/664246eced02aef578763e89fe8fbd89.1000x1000x1.png"
+    },
+    {
+      "id": "rel_05",
+      "title": "Not For Me",
+      "artist": "w0ndr",
+      "release_date": "2026-05-12",
+      "format": "Single",
+      "link": "#",
+      "cover": "https://i1.sndcdn.com/artworks-eG9zk5WnePAzESI7-SEIF8g-t500x500.png"
+    },
+    {
+      "id": "rel_04",
+      "title": "Maybe?",
+      "artist": "Ivrs.",
+      "release_date": "2026-05-20",
+      "format": "Single Pack",
+      "link": "#",
+      "cover": "https://i.scdn.co/image/ab67616d0000b273036ca6fbf8e2ce9697f98f1e"
+    },
+    {
+      "id": "rel_03",
+      "title": "pas si rose",
+      "artist": "tengshe",
+      "release_date": "2026-03-06",
+      "format": "Single",
+      "link": "#",
+      "cover": "https://i.scdn.co/image/ab67616d0000b2733707ed435233d24e3f2640e5"
+    },
+    {
+      "id": "rel_06",
+      "title": "Scars Of You",
+      "artist": "Alma Nava",
+      "release_date": "2026-05-08",
+      "format": "Single",
+      "link": "#",
+      "cover": "https://external-preview.redd.it/scars-of-you-alma-nava-v0-a-2JMxck-mXwYOpRItPv9HhnwLDF2ImBktZCigwIfs8.jpeg?width=640&crop=smart&auto=webp&s=a4b53f42d9c3d9e424d0f5f284282d697e85f99c"
+    },
+    {
+      "id": "rel_07",
+      "title": "pas si rose",
+      "artist": "tengshe",
+      "release_date": "2026-05-20",
+      "format": "EP",
+      "link": "#",
+      "cover": "https://i.scdn.co/image/ab67616d0000b2733707ed435233d24e3f2640e5"
+    },
+    {
+      "id": "rel_08",
+      "title": "Fun",
+      "artist": "w0ndr",
+      "release_date": "2026-05-22",
+      "format": "Single",
+      "link": "#",
+      "cover": "https://i.scdn.co/image/ab67616d0000b273988ff169d983bd289c1d9c22"
+    },
+    {
+      "id": "rel_09",
+      "title": "Again",
+      "artist": "Ivrs.",
+      "release_date": "2026-06-03",
+      "format": "Single",
+      "link": "#",
+      "cover": "https://i.scdn.co/image/ab67616d0000b27315b80daa9db778cdd5beb75c"
+    },
+    {
+      "id": "rel_10",
+      "title": "3 Songs",
+      "artist": "w0ndr",
+      "release_date": "2026-07-03",
+      "format": "Single Pack",
+      "link": "#",
+      "cover": "https://i1.sndcdn.com/artworks-000678441863-9l7h8c-t500x500.png"
+    }
+  ]
+}
