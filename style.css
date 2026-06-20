@@ -1,23 +1,29 @@
+/* --- GLOBAL RESETS & FIXES --- */
+html, body {
+    background-color: #f2efe9; /* Fixe la barre translucide en bas sur iOS */
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: 100%; /* Empêche le zoom auto sur mobile */
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
+    font-variant-emoji: text; /* Empêche les symboles de se transformer en emojis */
 }
 
 body {
-    background-color: #f2efe9;
     color: #111;
-    padding: 0;
-    margin: 0;
     overflow-x: hidden;
-    border-left: 8px solid #111;
-    border-right: 8px solid #111;
+    /* Bordures noires latérales supprimées comme demandé */
     min-height: 100vh;
     position: relative;
 }
 
+/* Texture Papier/Carton subtile sur tout le paquet */
 body::before {
     content: "";
     position: fixed;
@@ -28,6 +34,7 @@ body::before {
     background: repeat url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2rV7928GBgYgBsgACEAAEGAAQJgDa8R6HxwAAAAASUVORK5CYII=');
 }
 
+/* --- THE RED CHEVRON HEADER --- */
 .pack-header {
     background-color: #A81A1A; 
     color: #f2efe9;
@@ -60,21 +67,22 @@ body::before {
 
 .warning-label {
     margin: -6vw auto 50px auto; 
-    max-width: 1400px;
+    max-width: 850px; /* Avant c'était 1400px. Ça l'empêche de devenir un bloc géant sur PC */
     width: 90%;
     background: #fff;
     border: clamp(3px, 1vw, 6px) solid #111;
-    padding: clamp(15px, 3vw, 40px);
+    padding: clamp(15px, 2vw, 25px); /* Padding max réduit (avant 40px) */
     text-align: center;
-    font-size: clamp(16px, 2.5vw, 32px);
+    font-size: clamp(13px, 1.8vw, 20px); /* Taille max réduite (avant 32px) */
     font-weight: 900;
-    line-height: 1.15;
+    line-height: 1.2;
     letter-spacing: -0.5px;
     position: relative;
     z-index: 3;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
 }
 
+/* --- MAIN PACK LAYOUT --- */
 .pack-layout {
     display: grid;
     grid-template-columns: 1fr; 
@@ -93,18 +101,22 @@ body::before {
 
 .pack-front { display: flex; flex-direction: column; gap: 20px; }
 
-/* Tabs adaptatifs pour 3 éléments */
+/* --- TABS --- */
 .pack-tabs {
     display: flex;
     border: 3px solid #111;
     flex-wrap: wrap; 
 }
+
 .tab-btn {
     flex: 1 1 auto;
     background: #fff;
+    color: #111; /* Force la couleur noire pour écraser le bleu iOS */
+    -webkit-appearance: none; /* Désactive le style de bouton natif Apple */
+    border-radius: 0;
     border: none;
     padding: clamp(12px, 1.5vw, 20px);
-    font-size: clamp(11px, 1.3vw, 18px); /* Légèrement plus petit pour faire tenir les 3 sur mobile */
+    font-size: clamp(11px, 1.3vw, 18px); 
     font-weight: 900;
     cursor: pointer;
     border-right: 3px solid #111;
@@ -115,10 +127,15 @@ body::before {
 .tab-btn.active { background: #A81A1A; color: #fff; }
 
 @media (max-width: 600px) {
-    .tab-btn { border-right: none; border-bottom: 3px solid #111; width: 100%; }
+    .tab-btn { 
+        border-right: none; 
+        border-bottom: 3px solid #111; 
+        width: 100%; 
+    }
     .tab-btn:last-child { border-bottom: none; }
 }
 
+/* Grids Setup */
 .content-view { display: none; }
 .content-view.active { display: grid; }
 
@@ -138,7 +155,7 @@ body::before {
     }
 }
 
-/* Animations Cellophane & Peeling (Inchangé) */
+/* Animations Cellophane & Peeling */
 @keyframes cellophane-glare {
     0% { left: -150%; opacity: 0; }
     20% { opacity: 1; }
@@ -208,8 +225,7 @@ body::before {
     margin-top: 15px; 
 }
 
-/* --- L'ÉTIQUETTE / STICKER --- */
-/* 1. Par défaut (Label/Roster ET Releases Gato) : ROUGE avec BORDURE NOIRE */
+/* L'ÉTIQUETTE / STICKER */
 .item-type {
     position: absolute;
     top: -12px;
@@ -221,21 +237,18 @@ body::before {
     letter-spacing: 1px;
     padding: 6px 12px;
     z-index: 15; 
-    border: 1px solid #111 !important; /* On force la bordure noire partout par défaut */
+    border: 1px solid #111 !important; 
     transform-origin: center;
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
-/* 2. Si c'est de la distribution (Artiste ou Release) : NOIR avec BORDURE NOIRE */
 .item-row.distro-item .item-type,
 .release-card.distro-release .item-type { 
     background: #111; 
     color: #fff;
-    /* La bordure est déjà gérée par la règle ci-dessus */
 }
 
-/* 3. L'animation au survol */
 .item-row:hover .item-type, 
 .release-card:hover .item-type {
     transform: translateY(-3px) rotate(-2deg) scale(1.02);
@@ -311,27 +324,16 @@ body::before {
     letter-spacing: 1px;
 }
 
-/* DISTINCTION SUBTILE LABEL vs DISTRO pour Releases */
-.release-card .item-type {
-    background: #A81A1A; 
-    border-color: #A81A1A;
-}
-.release-card.distro-release .item-type {
-    background: #111; /* L'étiquette de distribution devient noire */
-    color: #fff;
-    border-color: #111;
-}
-
-/* --- RIGHT COLUMN (SERVICES - PLUS IMPOSANTS) --- */
+/* --- RIGHT COLUMN (SERVICES) --- */
 .pack-side {
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
 .side-header {
-    font-size: 22px; /* Agrandit */
+    font-size: 22px; 
     font-weight: 900;
-    border-bottom: 4px solid #111; /* Renforcé */
+    border-bottom: 4px solid #111; 
     padding-bottom: 12px;
     margin-bottom: 25px;
 }
@@ -346,15 +348,15 @@ body::before {
 .cap-tag {
     background: transparent;
     color: #111;
-    font-size: 14px; /* Agrandit */
+    font-size: 14px; 
     font-weight: 900;
     margin-bottom: 8px;
-    border-bottom: 3px solid #A81A1A; /* Soulignement plus marquant */
+    border-bottom: 3px solid #A81A1A; 
     padding-bottom: 4px;
     letter-spacing: 1px;
 }
 .cap-desc {
-    font-size: 14px; /* Agrandit pour la lisibilité */
+    font-size: 14px; 
     font-weight: bold;
     color: #444;
     line-height: 1.6;
@@ -386,7 +388,7 @@ body::before {
     background: repeating-linear-gradient(90deg, #111, #111 4px, transparent 4px, transparent 8px, #111 8px, #111 10px, transparent 10px, transparent 16px);
 }
 
-/* --- MODAL DIALOG (BRUTALIST & SHARP) --- */
+/* --- MODAL DIALOG --- */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -489,7 +491,6 @@ body::before {
     text-transform: none; 
 }
 
-/* Boutons réseaux sociaux - Zéro arrondi, Ombre douce */
 .social-links {
     display: flex;
     flex-wrap: wrap;
@@ -533,4 +534,74 @@ body::before {
     background: #111;
     transform: translateY(-2px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+
+/* =========================================
+   MOBILE OPTIMIZATIONS (Hiérarchie & Proportions)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* MODALS - Réduction des proportions */
+    .modal-content {
+        padding: 20px; /* Moins de marge interne pour gagner de la place */
+    }
+    
+    /* Le bouton ferme est rapatrié DANS le cadre pour ne pas sortir de l'écran */
+    .close-btn {
+        top: 10px; 
+        right: 10px;
+        width: 35px; 
+        height: 35px;
+        font-size: 16px;
+        border-width: 2px;
+    }
+
+    /* En-tête du modal plus compact */
+    .modal-header-area {
+        gap: 15px;
+        margin-top: 10px; /* Laisse l'espace au bouton X */
+        margin-bottom: 15px;
+    }
+    
+    .modal-image {
+        width: 80px; /* Image réduite */
+        height: 80px;
+    }
+
+    .modal-title {
+        font-size: clamp(28px, 8vw, 40px); /* Typo adaptée aux longs noms */
+    }
+
+    .modal-desc {
+        padding-top: 15px;
+        margin-top: 5px;
+        font-size: 13px;
+    }
+
+    /* ROSTER (Cartes Artistes) */
+    .item-details {
+        padding: 15px 10px; /* Marges réduites */
+        width: calc(100% - 75px);
+    }
+    .item-name {
+        font-size: clamp(24px, 6vw, 32px); /* Empêche les sauts de lignes laids */
+    }
+    .row-thumb {
+        width: 60px;
+        height: 60px;
+        margin: 15px 15px 15px 0;
+    }
+
+    /* Social Buttons - Empilement optimisé */
+    .social-links {
+        gap: 8px;
+        margin-top: 15px;
+    }
+    .social-btn {
+        padding: 8px 12px;
+        font-size: 10px;
+        flex: 1 1 auto; /* Prend toute la place dispo logiquement */
+        justify-content: center;
+    }
 }
