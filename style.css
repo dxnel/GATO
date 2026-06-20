@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    background-color: #f2efe9; /* Le reste du site reste crème */
+    background-color: #A81A1A; /* Le reste du site reste crème */
     margin: 0;
     padding: 0;
     color: #111;
@@ -40,6 +40,10 @@ body::before {
     z-index: 9999;
     background: repeat url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2rV7928GBgYgBsgACEAAEGAAQJgDa8R6HxwAAAAASUVORK5CYII=');
 }
+
+/* J'AI SUPPRIMÉ LE DEUXIÈME BLOC BODY::BEFORE QUI CRÉAIT LE CONFLIT ! */
+
+/* --- THE RED CHEVRON HEADER --- */
 
 /* --- THE RED CHEVRON HEADER --- */
 .pack-header {
