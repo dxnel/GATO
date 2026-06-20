@@ -1,9 +1,12 @@
 /* --- GLOBAL RESETS & FIXES --- */
 html, body {
-    background-color: #f2efe9; /* Fixe la barre translucide en bas sur iOS */
+    background-color: #f2efe9;
     margin: 0;
     padding: 0;
-    -webkit-text-size-adjust: 100%; /* Empêche le zoom auto sur mobile */
+    -webkit-text-size-adjust: 100%;
+    /* FIX: Force full height and prevent Safari's bottom bar overlap */
+    height: 100%;
+    min-height: -webkit-fill-available;
 }
 
 * {
@@ -12,15 +15,19 @@ html, body {
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
-    font-variant-emoji: text; /* Empêche les symboles de se transformer en emojis */
+    font-variant-emoji: text;
 }
 
 body {
     color: #111;
     overflow-x: hidden;
-    /* Bordures noires latérales supprimées comme demandé */
+    /* FIX: Use fill-available for proper mobile full screen */
     min-height: 100vh;
+    min-height: -webkit-fill-available;
     position: relative;
+    /* FIX: Ensure no phantom margins create gaps */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Texture Papier/Carton subtile sur tout le paquet */
