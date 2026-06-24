@@ -107,7 +107,8 @@
       "release_date": "2025-11-16",
       "format": "Single",
       "link": "#",
-      "cover": "https://i1.sndcdn.com/artworks-hAgxzMG13CrkRHWX-koMXKA-t1080x1080.png"
+      "cover": "https://i1.sndcdn.com/artworks-hAgxzMG13CrkRHWX-koMXKA-t1080x1080.png",
+      "desc": "DEBUT OFFERING FROM YZOTE. RELEASED VIA GATO PIPELINE."
     },
     {
       "id": "rel_02",
@@ -116,7 +117,8 @@
       "release_date": "2026-02-27",
       "format": "Single",
       "link": "#",
-      "cover": "https://images.genius.com/664246eced02aef578763e89fe8fbd89.1000x1000x1.png"
+      "cover": "https://images.genius.com/664246eced02aef578763e89fe8fbd89.1000x1000x1.png",
+      "desc": "W0NDR ENTERS THE STRATOSPHERE. HIGH-ALTITUDE SONIC EXPLORATION."
     },
     {
       "id": "rel_05",
@@ -125,7 +127,8 @@
       "release_date": "2026-05-12",
       "format": "Single",
       "link": "#",
-      "cover": "https://i1.sndcdn.com/artworks-eG9zk5WnePAzESI7-SEIF8g-t500x500.png"
+      "cover": "https://i1.sndcdn.com/artworks-eG9zk5WnePAzESI7-SEIF8g-t500x500.png",
+      "desc": "SECOND CHAPTER IN W0NDR'S ASCENSION. PURE GATO ESSENCE."
     },
     {
       "id": "rel_04",
@@ -134,7 +137,8 @@
       "release_date": "2026-05-20",
       "format": "Single Pack",
       "link": "#",
-      "cover": "https://i.scdn.co/image/ab67616d0000b273036ca6fbf8e2ce9697f98f1e"
+      "cover": "https://i.scdn.co/image/ab67616d0000b273036ca6fbf8e2ce9697f98f1e",
+      "desc": "IVRS DEBUT TRANSMISSION. A QUESTION WITH NO ANSWER."
     },
     {
       "id": "rel_03",
@@ -143,7 +147,8 @@
       "release_date": "2026-03-06",
       "format": "Single",
       "link": "#",
-      "cover": "https://i.scdn.co/image/ab67616d0000b2733707ed435233d24e3f2640e5"
+      "cover": "https://i.scdn.co/image/ab67616d0000b2733707ed435233d24e3f2640e5",
+      "desc": "TENGSHE ARRIVES. IMPORTED PIPELINE DISTRIBUTION."
     },
     {
       "id": "rel_06",
@@ -152,7 +157,8 @@
       "release_date": "2026-05-08",
       "format": "Single",
       "link": "#",
-      "cover": "https://external-preview.redd.it/scars-of-you-alma-nava-v0-a-2JMxck-mXwYOpRItPv9HhnwLDF2ImBktZCigwIfs8.jpeg?width=640&crop=smart&auto=webp&s=a4b53f42d9c3d9e424d0f5f284282d697e85f99c"
+      "cover": "https://external-preview.redd.it/scars-of-you-alma-nava-v0-a-2JMxck-mXwYOpRItPv9HhnwLDF2ImBktZCigwIfs8.jpeg?width=640&crop=smart&auto=webp&s=a4b53f42d9c3d9e424d0f5f284282d697e85f99c",
+      "desc": "ALMA NAVA EXCLUSIVE. EMOTIONAL DISTORTION."
     },
     {
       "id": "rel_07",
@@ -161,7 +167,8 @@
       "release_date": "2026-05-20",
       "format": "EP",
       "link": "#",
-      "cover": "https://i.scdn.co/image/ab67616d0000b2733707ed435233d24e3f2640e5"
+      "cover": "https://i.scdn.co/image/ab67616d0000b2733707ed435233d24e3f2640e5",
+      "desc": "EXTENDED COLLECTION. FOUR CHAPTERS FROM TENGSHE'S DEBUT RUN."
     },
     {
       "id": "rel_08",
@@ -170,7 +177,8 @@
       "release_date": "2026-05-22",
       "format": "Single",
       "link": "#",
-      "cover": "https://i.scdn.co/image/ab67616d0000b273988ff169d983bd289c1d9c22"
+      "cover": "https://i.scdn.co/image/ab67616d0000b273988ff169d983bd289c1d9c22",
+      "desc": "W0NDR CONTINUES. A CHEERFUL ILLUSION."
     },
     {
       "id": "rel_09",
@@ -179,7 +187,8 @@
       "release_date": "2026-06-03",
       "format": "Single",
       "link": "#",
-      "cover": "https://i.scdn.co/image/ab67616d0000b27315b80daa9db778cdd5beb75c"
+      "cover": "https://i.scdn.co/image/ab67616d0000b27315b80daa9db778cdd5beb75c",
+      "desc": "IVRS RETURNS. THE CYCLE REPEATS."
     },
     {
       "id": "rel_10",
@@ -188,7 +197,8 @@
       "release_date": "2026-07-03",
       "format": "Single Pack",
       "link": "#",
-      "cover": "https://i1.sndcdn.com/artworks-000678441863-9l7h8c-t500x500.png"
+      "cover": "https://i1.sndcdn.com/artworks-000678441863-9l7h8c-t500x500.png",
+      "desc": "TRIPLE THREAT W0NDR PACK. PURE ENERGY."
     }
   ]
 }

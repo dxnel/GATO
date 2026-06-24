@@ -24,6 +24,12 @@ function getRandomVars() {
     return `--glare-dur: ${dur}s; --glare-angle: ${angle}deg; --glare-delay: ${delay}s;`;
 }
 
+function formatDate(dateStr) {
+    const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const d = new Date(dateStr + 'T12:00:00'); // T12:00:00 prevents UTC timezone date shift
+    return `${months[d.getMonth()]} ${String(d.getDate()).padStart(2,'0')}, ${d.getFullYear()}`;
+}
+
 function renderPack() {
     if(!packData.packaging_info) return;
 
@@ -105,22 +111,41 @@ function renderPack() {
     relTarget.innerHTML = sortedReleases.map(rel => {
         const artistData = packData.roster_blend.find(a => a.name === rel.artist);
         const isDistroRelease = artistData && artistData.type.toLowerCase().includes("distribution");
+        const isUpcoming = new Date(rel.release_date + 'T12:00:00') > new Date();
+        
+        let formatDisplay = rel.format;
+        let typeStyle = '';
+        
+        if (isUpcoming) {
+            formatDisplay = `${rel.format} · SOON`;
+            if (!isDistroRelease) {
+                typeStyle = 'style="background: #111; color: #fff;"';
+            }
+        }
 
         return `
         <div class="release-card ${isDistroRelease ? 'distro-release' : ''}" style="${getRandomVars()}" onclick="openModal('release', '${rel.id}')">
             <div class="cellophane-wrapper"></div>
-            <div class="item-type">${rel.format}</div>
+            <div class="item-type" ${typeStyle}>${formatDisplay}</div>
             <div class="release-cover-wrapper">
                 <img src="${rel.cover || ''}" class="release-cover" alt="${rel.title}">
             </div>
             <div class="release-info">
                 <div class="item-name instrument-serif">${rel.title}</div>
                 <div class="item-role">BY ${rel.artist}</div>
-                <div class="item-batch">${rel.release_date}</div>
+                <div class="item-batch">${formatDate(rel.release_date)}</div>
             </div>
         </div>
         `;
     }).join('');
+    
+    // Updates Tab counts
+    const tabs = document.querySelectorAll('.tab-btn');
+    if (tabs.length >= 3) {
+        tabs[0].innerText = `ROSTER (${labelRoster.length})`;
+        tabs[1].innerText = `PARTNERS (${distroRoster.length})`;
+        tabs[2].innerText = `RELEASES (${sortedReleases.length})`;
+    }
 }
 
 function openModal(type, id) {
@@ -143,7 +168,7 @@ function openModal(type, id) {
         
         if(art.socials) {
             for (const [platform, url] of Object.entries(art.socials)) {
-                socialContainer.innerHTML += `<a href="${url}" target="_blank" class="social-btn">${platform} ↗</a>`;
+                socialContainer.innerHTML += `<a href="${url}" target="_blank" class="social-btn">${platform} ↗\uFE0E</a>`;
             }
         }
     } else {
@@ -157,9 +182,14 @@ function openModal(type, id) {
         document.getElementById('modal-type').style.background = isDistroRelease ? "#111" : "#A81A1A";
 
         document.getElementById('modal-title').innerText = rel.title;
-        document.getElementById('modal-role').innerText = `BY ${rel.artist} ● ${rel.release_date}`;
-        document.getElementById('modal-desc').innerText = "AUDIO PACKAGED AND DISTRIBUTED UNDER GATO CERTIFICATION.";
-        actionContainer.innerHTML = `<a href="${rel.link}" class="modal-action">TEAR OPEN // LISTEN ↗</a>`;
+        document.getElementById('modal-role').innerText = `BY ${rel.artist} ● ${formatDate(rel.release_date)}`;
+        document.getElementById('modal-desc').innerText = rel.desc || "AUDIO PACKAGED AND DISTRIBUTED UNDER GATO CERTIFICATION.";
+        
+        if (rel.link && rel.link !== "#") {
+            actionContainer.innerHTML = `<a href="${rel.link}" class="modal-action">TEAR OPEN // LISTEN ↗\uFE0E</a>`;
+        } else {
+            actionContainer.innerHTML = `<div style="text-align:center; font-size:11px; font-weight:900; color:#999; letter-spacing:2px; margin-top:10px; padding:14px; border:2px dashed #ccc;">NOT YET AVAILABLE</div>`;
+        }
     }
     container.classList.add('active');
 }
@@ -172,3 +202,7 @@ function forceClose() {
 }
 
 window.onload = initPack;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') forceClose();
+});

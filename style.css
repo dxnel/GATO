@@ -1,5 +1,7 @@
 /* --- GLOBAL RESETS & FIXES --- */
 html {
+    margin: 0;
+    padding: 0;
     background-color: #A81A1A; /* Colore la barre système iOS en rouge en haut */
     -webkit-text-size-adjust: 100%; 
 }
@@ -28,7 +30,7 @@ body {
 }
 
 /* Texture Papier/Carton subtile sur tout le paquet */
-body::before {
+html::before {
     content: "";
     position: fixed;
     top: 0; 
@@ -39,6 +41,7 @@ body::before {
     pointer-events: none;
     z-index: 9999;
     background: repeat url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2rV7928GBgYgBsgACEAAEGAAQJgDa8R6HxwAAAAASUVORK5CYII=');
+    background-size: 2px 2px;
 }
 
 /* J'AI SUPPRIMÉ LE DEUXIÈME BLOC BODY::BEFORE QUI CRÉAIT LE CONFLIT ! */
@@ -50,7 +53,7 @@ body::before {
     background-color: #A81A1A; 
     color: #f2efe9;
     text-align: center;
-    padding: clamp(40px, 6vw, 80px) 20px clamp(80px, 12vw, 150px) 20px;
+    padding: calc(clamp(40px, 6vw, 80px) + env(safe-area-inset-top, 0px)) 20px clamp(80px, 12vw, 150px) 20px;
     position: relative;
     clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
     z-index: 2;
@@ -144,6 +147,12 @@ body::before {
         width: 100%; 
     }
     .tab-btn:last-child { border-bottom: none; }
+    
+    #view-roster-label.active,
+    #view-roster-distro.active {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }
 
 /* Grids Setup */
@@ -233,7 +242,6 @@ body::before {
     justify-content: space-between;
     align-items: center;
     min-height: 120px;
-    margin-top: 15px; 
 }
 
 /* L'ÉTIQUETTE / STICKER */
@@ -276,7 +284,7 @@ body::before {
     z-index: 2; 
 }
 .item-name {
-    font-size: clamp(30px, 3vw, 42px);
+    font-size: clamp(20px, 5vw, 42px);
     line-height: 1;
     margin-bottom: 5px;
 }
@@ -291,7 +299,8 @@ body::before {
     width: 80px;
     height: 80px;
     object-fit: cover;
-    background: #f2efe9;
+    background-color: #e8e3d8;
+    background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 8px);
     border-left: 2px solid #111; 
     margin: 20px 20px 20px 0; 
     position: relative;
@@ -302,7 +311,6 @@ body::before {
 .release-card {
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
 }
 .release-cover-wrapper {
     width: 100%;
@@ -317,6 +325,8 @@ body::before {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    background-color: #e8e3d8;
+    background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 8px);
 }
 .release-info {
     padding: 15px;
@@ -459,7 +469,8 @@ body::before {
     height: 120px;
     object-fit: cover;
     border: 2px solid #111;
-    background: #f2efe9;
+    background-color: #e8e3d8;
+    background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 8px);
 }
 
 .modal-info-core { 
@@ -479,7 +490,7 @@ body::before {
     border: 1px solid #111;
 }
 .modal-title {
-    font-size: clamp(35px, 5vw, 60px); 
+    font-size: clamp(24px, 5.5vw, 60px); 
     line-height: 0.9;
     margin-bottom: 5px;
     font-weight: normal;
@@ -492,7 +503,7 @@ body::before {
 }
 
 .modal-desc {
-    font-size: clamp(14px, 2vw, 16px);
+    font-size: clamp(12px, 3vw, 16px);
     font-weight: bold;
     color: #111;
     line-height: 1.6;
@@ -520,6 +531,7 @@ body::before {
     text-decoration: none;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s;
+    font-variant-emoji: text;
 }
 .social-btn:hover {
     transform: translateY(-2px);
@@ -540,6 +552,7 @@ body::before {
     border: 3px solid #111;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    font-variant-emoji: text;
 }
 .modal-action:hover {
     background: #111;
@@ -554,8 +567,18 @@ body::before {
 @media (max-width: 768px) {
     
     /* MODALS - Réduction des proportions */
+    .modal-overlay {
+        overflow-y: auto;
+        align-items: flex-start;
+        padding-top: max(20px, env(safe-area-inset-top, 20px));
+        padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    }
+    
     .modal-content {
         padding: 20px; /* Moins de marge interne pour gagner de la place */
+        max-height: none;
+        overflow-y: visible;
+        margin: auto 0;
     }
     
     /* Le bouton ferme est rapatrié DANS le cadre pour ne pas sortir de l'écran */
@@ -576,32 +599,35 @@ body::before {
     }
     
     .modal-image {
-        width: 80px; /* Image réduite */
-        height: 80px;
+        width: 68px; /* Image réduite */
+        height: 68px;
     }
 
     .modal-title {
-        font-size: clamp(28px, 8vw, 40px); /* Typo adaptée aux longs noms */
+        font-size: clamp(20px, 5.5vw, 32px); /* Typo adaptée aux longs noms */
     }
 
     .modal-desc {
         padding-top: 15px;
         margin-top: 5px;
-        font-size: 13px;
+        font-size: clamp(11px, 3vw, 13px);
     }
 
     /* ROSTER (Cartes Artistes) */
     .item-details {
-        padding: 15px 10px; /* Marges réduites */
-        width: calc(100% - 75px);
+        padding: 10px 8px; /* Marges réduites */
+        width: calc(100% - 55px);
     }
     .item-name {
-        font-size: clamp(24px, 6vw, 32px); /* Empêche les sauts de lignes laids */
+        font-size: clamp(16px, 4.5vw, 24px); /* Empêche les sauts de lignes laids */
     }
     .row-thumb {
-        width: 60px;
-        height: 60px;
-        margin: 15px 15px 15px 0;
+        width: 45px;
+        height: 45px;
+        margin: 12px 12px 12px 0;
+    }
+    .item-row {
+        min-height: 90px;
     }
 
     /* Social Buttons - Empilement optimisé */
