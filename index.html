@@ -15,6 +15,14 @@
 </head>
 <body>
 
+    <!-- iOS 26 Safari (Liquid Glass) reads background-color from small fixed
+         elements near the viewport edges to tint the status bar / toolbar.
+         Your header/footer aren't `position: fixed`, so Safari had nothing
+         to sample and fell back to the body color (cream) at the top —
+         that's the "white bar". These two divs give it the right colors. -->
+    <div id="ios-tint-top" aria-hidden="true"></div>
+    <div id="ios-tint-bottom" aria-hidden="true"></div>
+
     <header class="pack-header">
         <h1 class="brand-title instrument-serif">GATO</h1>
         <div class="brand-subtitle">EST. 2025</div>

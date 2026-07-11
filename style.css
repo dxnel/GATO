@@ -46,6 +46,44 @@ html::before {
 
 /* J'AI SUPPRIMÉ LE DEUXIÈME BLOC BODY::BEFORE QUI CRÉAIT LE CONFLIT ! */
 
+/* --- iOS 26 SAFARI TOOLBAR TINT SENTINELS ---
+   Safari 26's "Liquid Glass" chrome no longer respects <meta name="theme-color">.
+   Instead it samples the background-color of fixed/sticky elements sitting
+   right at the top/bottom viewport edge (roughly the top 4px / bottom 3px,
+   spanning most of the width). Real elements only — it ignores html
+   background-color and ::before/::after pseudo-elements entirely.
+   These two invisible strips just give it the right colors to sample. */
+#ios-tint-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background-color: #A81A1A; /* matches .pack-header red */
+    pointer-events: none;
+    z-index: 9998;
+}
+#ios-tint-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 92%;
+    min-height: 16px;
+    background-color: #f2efe9; /* matches body cream */
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* Turn off the paper texture on mobile: iOS Safari's dynamic toolbar can
+   clip fixed full-viewport layers right at the chrome edge, so the texture
+   either stops short of it or re-paints oddly while scrolling. It's a subtle
+   effect anyway — cleaner to just skip it below 768px than fight the bug. */
+@media (max-width: 768px) {
+    html::before {
+        display: none;
+    }
+}
+
 /* --- THE RED CHEVRON HEADER --- */
 
 /* --- THE RED CHEVRON HEADER --- */
